@@ -145,7 +145,7 @@ int DrmComposition::Plan(std::map<int, DrmDisplayCompositor> &compositor_map, in
   int ret = 0;
   if (!composition_map_[display]->crtc())
   {
-     ALOGE("%s: crtc is null", __FUNCTION__);
+     //ALOGE("%s: crtc is null", __FUNCTION__);
      return 0;
   }
   DrmDisplayComposition *comp = GetDisplayComposition(display);
@@ -165,7 +165,7 @@ std::vector<PlaneGroup *>& plane_groups = drm_->GetPlaneGroups();
   DrmCrtc *crtc = composition_map_[display]->crtc();
   if (!crtc)
   {
-     ALOGE("%s: crtc is null", __FUNCTION__);
+     //ALOGE("%s: crtc is null", __FUNCTION__);
      return 0;
   }
 

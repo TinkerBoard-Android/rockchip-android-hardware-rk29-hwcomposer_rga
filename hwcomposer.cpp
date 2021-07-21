@@ -2595,8 +2595,8 @@ static int hwc_prepare(hwc_composer_device_1_t *dev, size_t num_displays,
     hwc_drm_display_t *hd = &ctx->displays[connector->display()];
     DrmCrtc *crtc = ctx->drm.GetCrtcFromConnector(connector);
     if (connector->state() != DRM_MODE_CONNECTED || !crtc) {
-      ALOGE("%s: display=%d, connector[%d] is disconnect type=%s",__FUNCTION__,i,
-                connector->display(),ctx->drm.connector_type_str(connector->get_type()));
+      //ALOGE("%s: display=%d, connector[%d] is disconnect type=%s",__FUNCTION__,i,
+                //connector->display(),ctx->drm.connector_type_str(connector->get_type()));
       hwc_list_nodraw(display_contents[i]);
       continue;
     }
@@ -3642,7 +3642,7 @@ static int hwc_set(hwc_composer_device_1_t *dev, size_t num_displays,
 
   if(layers_map.size() == 0)
   {
-    ALOGD("%s: layers_map size is 0",__FUNCTION__);
+    //ALOGD("%s: layers_map size is 0",__FUNCTION__);
     goto err;
   }
 
@@ -3769,7 +3769,7 @@ static int hwc_set(hwc_composer_device_1_t *dev, size_t num_displays,
   return ret;
 
 err:
-    ALOGE("%s: not normal frame happen",__FUNCTION__);
+    //ALOGE("%s: not normal frame happen",__FUNCTION__);
     for (size_t i = 0; i < num_displays; ++i) {
         hwc_display_contents_1_t *dc = sf_display_contents[i];
         if (!dc || i == HWC_DISPLAY_VIRTUAL)

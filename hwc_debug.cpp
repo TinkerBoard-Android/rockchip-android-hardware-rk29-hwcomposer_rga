@@ -452,7 +452,7 @@ void dump_layer(const gralloc_module_t *gralloc, bool bDump, hwc_layer_1_t *laye
                 << layer->visibleRegionScreen.rects[i].bottom << "},";
         }
         out << "\n";
-        ALOGD_IF(log_level(DBG_VERBOSE) || bDump,"%s",out.str().c_str());
+        //ALOGD_IF(log_level(DBG_VERBOSE) || bDump,"%s",out.str().c_str());
     }
 }
 
