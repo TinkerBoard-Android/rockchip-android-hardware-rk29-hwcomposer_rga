@@ -95,6 +95,8 @@ using android::gralloc4::MetadataType_Width;
 using android::gralloc4::decodeWidth;
 using android::gralloc4::MetadataType_Height;
 using android::gralloc4::decodeHeight;
+using android::gralloc4::MetadataType_Name;
+using android::gralloc4::decodeName;
 
 using aidl::android::hardware::graphics::common::Dataspace;
 using aidl::android::hardware::graphics::common::PlaneLayout;
@@ -522,6 +524,19 @@ int get_share_fd(buffer_handle_t handle, int* share_fd)
     assert (fds.size() > 0);
 
     *share_fd = (int)(fds[0]);
+
+    return err;
+}
+
+int get_name(buffer_handle_t handle, std::string &name)
+{
+    auto &mapper = get_service();
+
+    int err = get_metadata(mapper, handle, MetadataType_Name, decodeName, &name);
+    if (err != android::OK)
+    {
+        ALOGE("err : %d", err);
+    }
 
     return err;
 }

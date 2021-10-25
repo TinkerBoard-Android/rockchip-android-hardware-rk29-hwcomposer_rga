@@ -104,6 +104,8 @@ int get_allocation_size(buffer_handle_t handle, uint64_t* usage);
 
 int get_share_fd(buffer_handle_t handle, int* share_fd);
 
+int get_name(buffer_handle_t handle, std::string &name);
+
 using android::status_t;
 
 status_t importBuffer(buffer_handle_t rawHandle, buffer_handle_t* outHandle);

@@ -43,6 +43,7 @@
 #include "platform.h"
 #include "virtualcompositorworker.h"
 #include "vsyncworker.h"
+#include "autolock.h"
 
 #include <stdlib.h>
 
@@ -190,9 +191,18 @@ class DrmHotplugHandler : public DrmEventHandler {
     displays_ = displays;
     drm_ = drm;
     procs_ = procs;
+    int ret = pthread_mutex_init(&lock_, NULL);
+    if (ret) {
+      ALOGE("Failed to initialize drm compositor lock %d\n", ret);
+      return;
+    }
   }
 
   void HandleEvent(uint64_t timestamp_us) {
+    AutoLock lock(&lock_, __func__);
+    if (lock.Lock())
+      return;
+
     DrmConnector *extend = NULL;
     DrmConnector *primary = NULL;
 
@@ -446,6 +456,7 @@ class DrmHotplugHandler : public DrmEventHandler {
   DrmResources *drm_ = NULL;
   const struct hwc_procs *procs_ = NULL;
   DisplayMap* displays_ = NULL;
+  pthread_mutex_t lock_;
 };
 
 

@@ -572,7 +572,18 @@ exit:
 int hwc_get_handle_layername(const gralloc_module_t *gralloc, buffer_handle_t hnd, char* layername, unsigned long len)
 {
 #if USE_GRALLOC_4
-        strcpy(layername, "dummy");
+        std::string name;
+
+        int err = gralloc4::get_name(hnd, name);
+        if (err != android::OK)
+        {
+            ALOGE("Failed to get buffer format_requested, err : %d", err);
+            return -1;
+        }
+
+        int str_size = strlen(name.c_str())+1;
+        str_size = str_size > len ? len:str_size;
+        strncpy(layername, name.c_str(),str_size);
         return 0;
 #else   // USE_GRALLOC_4
 
@@ -2794,7 +2805,7 @@ int hwc_get_baseparameter_config(char *parameter, int display, int flag, int typ
 
                     for( i = 0 ; i < 5 ; i++)
                     {
-                        if(type == base_parameter.main.screen_list[i].type)
+                        if(type == base_parameter.aux.screen_list[i].type)
                         {
                             type_found = true;
                             break;
@@ -3054,7 +3065,7 @@ int hwc_get_baseparameter_config(char *parameter, int display, int flag, int typ
 
                 for( i = 0 ; i < SCREEN_LIST_MAX ; i++ )
                 {
-                    if(type == base_parameter.main.screen_list[i].type)
+                    if(type == base_parameter.aux.screen_list[i].type)
                     {
                         type_found = true;
                         break;
