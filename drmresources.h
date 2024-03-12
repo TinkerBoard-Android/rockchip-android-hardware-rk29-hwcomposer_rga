@@ -135,8 +135,8 @@ class DrmResources {
 
 #if (RK_RGA_COMPSITE_SYNC | RK_RGA_PREPARE_ASYNC)
   bool isSupportRkRga() {
-	RockchipRga& rkRga(RockchipRga::get());
-	return rkRga.RkRgaIsReady();
+	//RGA Check No Longer Supported by new librga, Always return true;
+	return true;
   }
 #endif
   bool is_hdr_panel_support_st2084(DrmConnector *conn) const;
